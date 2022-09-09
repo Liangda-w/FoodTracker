@@ -2,6 +2,8 @@ package com.example.foodtracker
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodtracker.adapter.ItemAdapter
@@ -30,6 +32,27 @@ class MainActivity : AppCompatActivity() {
         binding.addFloatingActionButton.setOnClickListener {
             val intent = Intent(this, AddActivity::class.java)
             this.startActivity(intent)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.layout_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_add_food_item -> {
+                val intent = Intent(this, AddActivity::class.java)
+                this.startActivity(intent)
+                return true
+            }
+            //  Otherwise, do nothing and use the core event handling
+
+            // when clauses require that all possible paths be accounted for explicitly,
+            //  for instance both the true and false cases if the value is a Boolean,
+            //  or an else to catch all unhandled cases.
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }
