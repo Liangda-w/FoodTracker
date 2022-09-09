@@ -1,4 +1,5 @@
 <resources>
+    <!-- Dummy Data -->
     <string name="app_name">FoodTracker</string>
     <string name="apple">Apple</string>
     <string name="banana">Banana</string>
@@ -6,4 +7,17 @@
     <string name="milk">Milk</string>
     <string name="eggs">Eggs</string>
     <string name="chicken">Chicken</string>
+
+    <!-- For Menu -->
+    <string name="menu_option_add">Add</string>
+
+    <!-- For Main Activity -->
+    <string name="floating_action_button_content_description">Add a new food item</string>
+
+    <!-- For Add Activity -->
+    <string name="tv_food_name">Food Name</string>
+    <string name="text_input_food_name_hint">Please enter the food name</string>
+    <string name="tv_expiration_date">Expiration Date</string>
+    <string name="button_pick_a_date">Pick a date</string>
+    <string name="button_add">Add</string>
 </resources>
