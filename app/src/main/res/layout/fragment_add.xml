@@ -17,16 +17,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <Spinner
+            android:id="@+id/category_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:defaultFocusHighlightEnabled="true"
+            android:textSize="16sp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/food_item_category" />
+
         <TextView
             android:id="@+id/food_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="@string/tv_food_name"
             android:textSize="16sp"
-            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/food_item_category" />
-
+            app:layout_constraintTop_toBottomOf="@id/category_spinner" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/food_item_name_input_layout"
@@ -34,6 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/text_input_food_name_hint"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/food_item_name">
 
@@ -60,6 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/text_input_food_quantity_hint"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/food_item_quantity">
 
@@ -81,7 +93,7 @@
             app:layout_constraintTop_toBottomOf="@id/food_item_quantity_input_layout" />
 
         <DatePicker
-            android:id="@+id/expiration_data_picker"
+            android:id="@+id/expiration_date_picker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -96,7 +108,7 @@
             android:layout_height="wrap_content"
             android:text="@string/button_add"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/expiration_data_picker" />
+            app:layout_constraintTop_toBottomOf="@id/expiration_date_picker" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

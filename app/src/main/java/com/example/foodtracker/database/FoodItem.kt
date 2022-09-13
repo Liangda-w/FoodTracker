@@ -26,13 +26,3 @@ data class FoodItem(
     val quantity: Int,
 
     )
-
-enum class FoodCategory(val category: String) {
-    DAIRY("Diary"),
-    FRUITS("Fruits"),
-    CEREALS_AND_LEGUMES("Cereals and Legumes"),
-    MEAT("Meat"),
-    CONFECTIONS("Confections"),
-    VEGETABLES("Vegetables"),
-    WATER("Water")
-}
