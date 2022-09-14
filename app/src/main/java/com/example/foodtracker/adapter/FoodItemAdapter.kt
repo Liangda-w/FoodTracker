@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodtracker.database.FoodItem
 import com.example.foodtracker.databinding.ListItemBinding
+import com.example.foodtracker.utils.formatExpirationDate
 
 /**
  * ListAdapter uses AsyncListDiffer to determine the differences between an old list of data and a new list of data.
@@ -64,11 +65,12 @@ class FoodItemAdapter(
         private var binding: ListItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        // Set the TextView
         @SuppressLint("SimpleDateFormat")
         fun bind(foodItem: FoodItem) {
             binding.foodItemTitle.text = foodItem.foodName
-            binding.foodItemExpirationDay.text = foodItem.foodExpirationDate.toString()
+            formatExpirationDate(foodItem.foodExpirationDate, binding.foodItemExpirationDay)
+            // TODO bind icon based on category
+            // TODO bind quantity
         }
     }
 }

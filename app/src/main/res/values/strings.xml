@@ -14,7 +14,7 @@
     <!-- For Main Activity -->
     <string name="floating_action_button_content_description">Add a new food item</string>
 
-    <!-- For Add Activity -->
+    <!-- For Add Fragment -->
     <string name="tv_food_category">Category <font color='#FF0000'>*</font></string>
     <string name="tv_food_name">Food Name <font color='#FF0000'>*</font></string>
     <string name="text_input_food_name_hint">Please enter the food name</string>
@@ -22,4 +22,9 @@
     <string name="text_input_food_quantity_hint">Please enter the food quantity</string>
     <string name="tv_expiration_date">Expiration Date <font color='#FF0000'>*</font></string>
     <string name="button_add">Add</string>
+
+    <!-- For List Fragment -->
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="expiration_in_x_days">In %1$s days</string>
 </resources>
