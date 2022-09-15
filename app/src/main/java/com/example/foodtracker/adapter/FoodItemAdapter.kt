@@ -61,6 +61,13 @@ class FoodItemAdapter(
         holder.bind(getItem(position))
     }
 
+    /**
+     * Get item from the position in View
+     */
+    public override fun getItem(position: Int): FoodItem {
+        return super.getItem(position)
+    }
+
     class FoodItemViewHolder(
         private var binding: ListItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {

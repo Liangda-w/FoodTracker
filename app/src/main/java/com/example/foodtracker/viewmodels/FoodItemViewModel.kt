@@ -6,11 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.foodtracker.database.FoodCategory
 import com.example.foodtracker.database.FoodItem
 import com.example.foodtracker.database.FoodItemDao
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.time.LocalDate
 
 /**
@@ -49,6 +47,9 @@ class FoodItemViewModel(
         )
     }
 
+    /**
+     * Inserts the new Item into database.
+     */
     fun addNewFoodItem(
         foodName: String,
         foodExpirationDate: LocalDate,
@@ -64,9 +65,19 @@ class FoodItemViewModel(
         insert(newItem)
     }
 
-    private suspend fun update(item: FoodItem) {
-        withContext(Dispatchers.IO) {
-            foodItemDao.update(item)
+    /**
+     * Launching a new coroutine to insert an item in a non-blocking way
+     */
+    fun insetItem(foodItem: FoodItem) {
+        insert(foodItem)
+    }
+
+    /**
+     * Launching a new coroutine to delete an item in a non-blocking way
+     */
+    fun deleteItem(item: FoodItem) {
+        viewModelScope.launch {
+            foodItemDao.delete(item)
         }
     }
 
