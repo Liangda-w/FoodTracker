@@ -46,7 +46,10 @@ class ListFragment : Fragment() {
         )
 
         binding.addFloatingActionButton.setOnClickListener { view: View ->
-            view.findNavController().navigate(R.id.action_listFragment_to_addFragment)
+            val action = ListFragmentDirections.actionListFragmentToAddFragment(
+                getString(R.string.add_fragment_title)
+            )
+            view.findNavController().navigate(action)
         }
 
         return binding.root
@@ -59,7 +62,10 @@ class ListFragment : Fragment() {
 
         // TODO Navigate to edit screen
         val foodItemAdapter = FoodItemAdapter {
-            view.findNavController().navigate(R.id.action_listFragment_to_addFragment)
+            val action = ListFragmentDirections.actionListFragmentToAddFragment(
+                getString(R.string.edit_fragment_title), it.id
+            )
+            view.findNavController().navigate(action)
         }
         recyclerView.adapter = foodItemAdapter
         lifecycle.coroutineScope.launch {

@@ -2,6 +2,7 @@ package com.example.foodtracker.utils
 
 import android.graphics.Color
 import android.graphics.Typeface
+import android.widget.DatePicker
 import android.widget.TextView
 import com.example.foodtracker.R
 import java.time.LocalDate
@@ -37,8 +38,16 @@ fun formatExpirationDate(date: LocalDate, textView: TextView) {
         textView.setTextColor(Color.parseColor("#f7ca02"))
         textView.setTypeface(null, Typeface.BOLD);
     } else {
-        textView.text = textView.context.getString(R.string.expiration_in_x_days, period.days.toString())
+        textView.text =
+            textView.context.getString(R.string.expiration_in_x_days, period.days.toString())
         textView.setTextColor(Color.parseColor("#52ad11"))
         textView.setTypeface(null, Typeface.BOLD);
     }
+}
+
+fun datePickerToLocalDate(datePicker: DatePicker): LocalDate {
+    val year = datePicker.year
+    val month = datePicker.month + 1
+    val day = datePicker.dayOfMonth
+    return LocalDate.of(year, month, day)
 }

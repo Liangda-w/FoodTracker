@@ -22,9 +22,14 @@
     <string name="text_input_food_quantity_hint">Please enter the food quantity</string>
     <string name="tv_expiration_date">Expiration Date <font color='#FF0000'>*</font></string>
     <string name="button_add">Add</string>
+    <string name="button_update">Update</string>
+    <string name="add_fragment_title">Add Item</string>
+    <string name="edit_fragment_title">Edit Item</string>
 
     <!-- For List Fragment -->
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="expiration_in_x_days">In %1$s days</string>
+
+
 </resources>

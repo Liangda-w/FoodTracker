@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/listFragment"
         android:name="com.example.foodtracker.ListFragment"
-        android:label="ListFragment" >
+        android:label="Food Tracker" >
         <action
             android:id="@+id/action_listFragment_to_addFragment"
             app:destination="@id/addFragment" />
@@ -15,9 +15,16 @@
     <fragment
         android:id="@+id/addFragment"
         android:name="com.example.foodtracker.AddFragment"
-        android:label="AddFragment" >
+        android:label="{title}">
         <action
             android:id="@+id/action_addFragment_to_listFragment"
             app:destination="@id/listFragment" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="itemId"
+            app:argType="long"
+            android:defaultValue="-1L" />
     </fragment>
 </navigation>

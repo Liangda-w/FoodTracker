@@ -5,16 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.foodtracker.database.FoodCategory
 import com.example.foodtracker.database.FoodItem
 import com.example.foodtracker.databinding.FragmentAddBinding
+import com.example.foodtracker.utils.categorySpinnerToEnum
+import com.example.foodtracker.utils.datePickerToLocalDate
 import com.example.foodtracker.viewmodels.FoodItemViewModel
 import com.example.foodtracker.viewmodels.FoodItemViewModelFactory
-import java.time.LocalDate
 
 class AddFragment : Fragment() {
     // For Logging
@@ -32,6 +35,7 @@ class AddFragment : Fragment() {
         )
     }
 
+    private val navigationArgs: AddFragmentArgs by navArgs()
     lateinit var foodItem: FoodItem
 
     override fun onCreateView(
@@ -57,23 +61,10 @@ class AddFragment : Fragment() {
      * Inserts the new Item into database and navigates up to list fragment.
      */
     private fun addNewItem() {
-        val year = binding.expirationDatePicker.year
-        val month = binding.expirationDatePicker.month + 1
-        val day = binding.expirationDatePicker.dayOfMonth
-        val date = LocalDate.of(year, month, day)
-
-        val category = binding.categorySpinner.selectedItem.toString()
-        var categoryEnum = FoodCategory.DAIRY
-        for (it in FoodCategory.values()) {
-            if (category == it.category) {
-                categoryEnum = it
-            }
-        }
-
         viewModel.addNewFoodItem(
             binding.foodItemNameInput.text.toString(),
-            date,
-            categoryEnum,
+            datePickerToLocalDate(binding.expirationDatePicker),
+            categorySpinnerToEnum(binding.categorySpinner),
             Integer.parseInt(binding.foodItemQuantityInput.text.toString())
         )
         findNavController().navigate(R.id.action_addFragment_to_listFragment)
@@ -81,9 +72,50 @@ class AddFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.addButton.setOnClickListener {
-            addNewItem()
+        val id = navigationArgs.itemId
+
+        if (id > 0) {
+            viewModel.retrieveItem(id).observe(this.viewLifecycleOwner) { selectedItem ->
+                foodItem = selectedItem
+                bind(foodItem)
+            }
+        } else {
+            binding.addButton.setOnClickListener {
+                addNewItem()
+            }
         }
+    }
+
+    /**
+     * Binds views with the passed in [FoodItem] information.
+     */
+    private fun bind(item: FoodItem) {
+        binding.apply {
+            foodItemNameInput.setText(item.foodName, TextView.BufferType.SPANNABLE)
+            foodItemQuantityInput.setText(item.quantity.toString(), TextView.BufferType.SPANNABLE)
+            categorySpinner.setSelection(item.category.ordinal)
+            expirationDatePicker.updateDate(
+                item.foodExpirationDate.year,
+                item.foodExpirationDate.monthValue - 1,
+                item.foodExpirationDate.dayOfMonth
+            )
+            addButton.text = getString(R.string.button_update)
+            addButton.setOnClickListener { updateItem() }
+        }
+    }
+
+    /**
+     * Updates an existing Item in the database and navigates up to list fragment.
+     */
+    private fun updateItem() {
+        viewModel.updateItem(
+            this.navigationArgs.itemId,
+            binding.foodItemNameInput.text.toString(),
+            datePickerToLocalDate(binding.expirationDatePicker),
+            categorySpinnerToEnum(binding.categorySpinner),
+            Integer.parseInt(binding.foodItemQuantityInput.text.toString())
+        )
+        findNavController().navigate(R.id.action_addFragment_to_listFragment)
     }
 
 }

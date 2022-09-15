@@ -1,8 +1,6 @@
 package com.example.foodtracker.viewmodels
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.foodtracker.database.FoodCategory
 import com.example.foodtracker.database.FoodItem
 import com.example.foodtracker.database.FoodItemDao
@@ -71,6 +69,58 @@ class FoodItemViewModel(
     fun insetItem(foodItem: FoodItem) {
         insert(foodItem)
     }
+
+    /**
+     * Retrieve an item from the repository.
+     */
+    fun retrieveItem(id: Long): LiveData<FoodItem> {
+        return foodItemDao.getOne(id).asLiveData()
+    }
+
+    /**
+     * Updates an existing FoodItem in the database.
+     */
+    fun updateItem(
+        itemId: Long,
+        foodName: String,
+        foodExpirationDate: LocalDate,
+        category: FoodCategory,
+        quantity: Int
+    ) {
+        val updatedItem =
+            getUpdatedItemEntry(itemId, foodName, foodExpirationDate, category, quantity)
+        updateItem(updatedItem)
+    }
+
+    /**
+     * Called to update an existing entry in the database.
+     * Returns an instance of the [FoodItem] entity class with the item info updated by the user.
+     */
+    private fun getUpdatedItemEntry(
+        itemId: Long,
+        foodName: String,
+        foodExpirationDate: LocalDate,
+        category: FoodCategory,
+        quantity: Int
+    ): FoodItem {
+        return FoodItem(
+            id = itemId,
+            foodName = foodName,
+            foodExpirationDate = foodExpirationDate,
+            category = category,
+            quantity = quantity
+        )
+    }
+
+    /**
+     * Launching a new coroutine to update an item in a non-blocking way
+     */
+    private fun updateItem(item: FoodItem) {
+        viewModelScope.launch {
+            foodItemDao.update(item)
+        }
+    }
+
 
     /**
      * Launching a new coroutine to delete an item in a non-blocking way
