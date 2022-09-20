@@ -54,6 +54,7 @@ class AddFragment : Fragment() {
             values
         )
 
+        binding.expirationDatePicker.minDate = System.currentTimeMillis() - 1000
         return binding.root
     }
 
@@ -61,13 +62,15 @@ class AddFragment : Fragment() {
      * Inserts the new Item into database and navigates up to list fragment.
      */
     private fun addNewItem() {
-        viewModel.addNewFoodItem(
-            binding.foodItemNameInput.text.toString(),
-            datePickerToLocalDate(binding.expirationDatePicker),
-            categorySpinnerToEnum(binding.categorySpinner),
-            Integer.parseInt(binding.foodItemQuantityInput.text.toString())
-        )
-        findNavController().navigate(R.id.action_addFragment_to_listFragment)
+        if (validateFoodItemFromUserInput()) {
+            viewModel.addNewFoodItem(
+                binding.foodItemNameInput.text.toString(),
+                datePickerToLocalDate(binding.expirationDatePicker),
+                categorySpinnerToEnum(binding.categorySpinner),
+                Integer.parseInt(binding.foodItemQuantityInput.text.toString())
+            )
+            findNavController().navigate(R.id.action_addFragment_to_listFragment)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -108,14 +111,45 @@ class AddFragment : Fragment() {
      * Updates an existing Item in the database and navigates up to list fragment.
      */
     private fun updateItem() {
-        viewModel.updateItem(
-            this.navigationArgs.itemId,
-            binding.foodItemNameInput.text.toString(),
-            datePickerToLocalDate(binding.expirationDatePicker),
-            categorySpinnerToEnum(binding.categorySpinner),
-            Integer.parseInt(binding.foodItemQuantityInput.text.toString())
-        )
-        findNavController().navigate(R.id.action_addFragment_to_listFragment)
+        if (validateFoodItemFromUserInput()) {
+            viewModel.updateItem(
+                this.navigationArgs.itemId,
+                binding.foodItemNameInput.text.toString(),
+                datePickerToLocalDate(binding.expirationDatePicker),
+                categorySpinnerToEnum(binding.categorySpinner),
+                Integer.parseInt(binding.foodItemQuantityInput.text.toString())
+            )
+            findNavController().navigate(R.id.action_addFragment_to_listFragment)
+        }
+    }
+
+    /**
+     * Validate the user input
+     */
+    private fun validateFoodItemFromUserInput(): Boolean {
+        var valid = true
+
+        // validate food name
+        val name = binding.foodItemNameInput.text.toString()
+        if (name == "") {
+            binding.foodItemNameInputLayout.error = "The name shouldn't be empty"
+            valid = false
+        } else {
+            binding.foodItemNameInputLayout.error = ""
+        }
+        // validate food quantity
+        val quantity = binding.foodItemQuantityInput.text.toString()
+        if (quantity == "") {
+            binding.foodItemQuantityInputLayout.error = "The quantity shouldn't be empty"
+            valid = false
+        } else if (Integer.parseInt(quantity) <= 0){
+            binding.foodItemQuantityInputLayout.error = "The quantity should be at least 1"
+            valid = false
+        } else {
+            binding.foodItemQuantityInputLayout.error = ""
+        }
+
+        return valid
     }
 
 }
