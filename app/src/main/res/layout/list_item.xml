@@ -26,10 +26,9 @@
 
             <TextView
                 android:id="@+id/food_item_title"
-                android:layout_width="wrap_content"
+                android:layout_width="110dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:gravity="center_horizontal"
+                android:layout_marginStart="@dimen/margin_between_elements"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/food_item_icon"
@@ -38,13 +37,28 @@
 
             <TextView
                 android:id="@+id/food_item_expiration_day"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:gravity="center_horizontal"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/food_item_quantity"
+                app:layout_constraintHorizontal_weight="2"
+                app:layout_constraintStart_toEndOf="@+id/food_item_title"
+                tools:text="2022-10-15" />
+
+            <TextView
+                android:id="@+id/food_item_quantity"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:gravity="center_horizontal"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="2"
+                app:layout_constraintStart_toEndOf="@+id/food_item_expiration_day"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="1" />
 

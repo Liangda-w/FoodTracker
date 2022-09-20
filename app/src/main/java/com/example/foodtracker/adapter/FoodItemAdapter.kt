@@ -75,9 +75,9 @@ class FoodItemAdapter(
         @SuppressLint("SimpleDateFormat")
         fun bind(foodItem: FoodItem) {
             binding.foodItemTitle.text = foodItem.foodName
+            binding.foodItemQuantity.text = foodItem.quantity.toString()
             formatExpirationDate(foodItem.foodExpirationDate, binding.foodItemExpirationDay)
             // TODO bind icon based on category
-            // TODO bind quantity
         }
     }
 }

@@ -30,6 +30,8 @@
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="expiration_in_x_days">In %1$s days</string>
-
+    <string name="header_item_name">Item</string>
+    <string name="header_expiration_date">Expire</string>
+    <string name="header_item_quantity">Quantity</string>
 
 </resources>
